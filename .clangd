@@ -1,0 +1,3 @@
+CompileFlags:
+  Add:
+    - "-I build/_deps/gbdk-src/include"
