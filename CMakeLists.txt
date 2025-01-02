@@ -68,6 +68,7 @@ add_custom_target(${PROJECT_NAME}.gb ALL
 
 # Set include directories
 include_directories(${GBDK_PATH}/include)
+include_directories("src")
 
 # Add custom clean target
 add_custom_target(clean_all

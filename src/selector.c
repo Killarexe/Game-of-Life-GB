@@ -1,5 +1,5 @@
 #include "selector.h"
-#include "selector_sprite.h"
+#include "graphics/selector_sprite.h"
 
 #include <stdint.h>
 #include <gb/gb.h>
@@ -33,7 +33,7 @@ void update_selector_position(Selector* selector) {
   move_sprite(0, selector->x, selector->y);
 }
 
-void play_move_sfx() {
+void play_move_sfx(void) {
   NR10_REG = 0x16;
   NR11_REG = 0x40;
   NR12_REG = 0x71;
@@ -41,7 +41,7 @@ void play_move_sfx() {
   NR14_REG = 0xE3;
 }
 
-void play_place_sfx() {
+void play_place_sfx(void) {
   NR10_REG = 0x1E;
   NR11_REG = 0x40;
   NR12_REG = 0x71;
