@@ -12,9 +12,6 @@ uint8_t buttons_index = 0;
 
 void init_title_scene(void) {
   set_bkg_tiles(0, 0, 20, 18, TITLE_SCREEN_MAP);
-  SHOW_BKG;
-  SHOW_SPRITES;
-  DISPLAY_ON;
 }
 
 uint8_t update_title_scene(Scene *current_scene, uint16_t* random_seed, uint8_t just_pressed_keys) {

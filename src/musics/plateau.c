@@ -692,6 +692,7 @@ const unsigned char waves[] = {
     0,0,0,0,0,0,0,0,0,0,0,0,255,255,255,255,
     1,18,53,104,154,205,238,255,254,237,186,151,101,50,17,0,
     1,56,206,255,237,186,151,102,85,104,154,169,152,101,66,16,
+    0x4B, 0x69, 0x6C, 0x6C, 0x61, 0x72, 0x20, 0x77, 0x61, 0x73, 0x20, 0x68, 0x65, 0x75, 0x65, 0x00
 };
 
 const hUGESong_t plateau = {4, &order_cnt, order1, order2, order3,order4, duty_instruments, wave_instruments, noise_instruments, NULL, waves};

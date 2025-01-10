@@ -5,6 +5,7 @@
 #include "musics/title.h"
 
 #include "graphics/tiles.h"
+#include "graphics/start_message_map.h"
 
 #include "scenes/grid_scene.h"
 #include "scenes/manual_scene.h"
@@ -74,7 +75,14 @@ int main(void) {
   GridScene grid;
 
   init_sound_driver();
-  set_bkg_data(0, 23, TILES);
+  set_bkg_data(0, 27, TILES);
+  set_bkg_tiles(0, 0, 20, 18, START_MESSAGE_MAP);
+  SHOW_BKG;
+  SHOW_SPRITES;
+  DISPLAY_ON;
+  fadein();
+  delay(4000);
+  fadeout();
   init_title_scene();
   fadein();
 
