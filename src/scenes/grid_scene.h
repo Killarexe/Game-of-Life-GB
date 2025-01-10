@@ -7,7 +7,15 @@
 #include <stdint.h>
 #include "../selector.h"
 
-void init_grid_scene(Selector* selector, uint8_t* current_map, uint8_t* is_paused);
-void update_grid_scene(Selector* selector, uint8_t** current_map, uint8_t* first_map, uint8_t* second_map, uint8_t just_pressed_keys, uint8_t* is_paused);
+typedef struct GridScene {
+  Selector selector;
+  uint8_t first_map[360];
+  uint8_t second_map[360];
+  uint8_t* current_map;
+  uint8_t is_paused;
+} GridScene;
+
+void init_grid_scene(GridScene* grid, uint16_t random_seed);
+void update_grid_scene(GridScene* grid, uint8_t just_pressed_keys);
 
 #endif

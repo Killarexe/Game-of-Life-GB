@@ -6,6 +6,6 @@
 
 void init_title_scene(void);
 
-uint8_t update_title_scene(Scene* current_scene, uint8_t just_pressed_keys);
+uint8_t update_title_scene(Scene* current_scene, uint16_t* random_seed, uint8_t just_pressed_keys);
 
 #endif

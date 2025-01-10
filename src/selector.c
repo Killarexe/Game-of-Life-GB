@@ -15,6 +15,7 @@ void init_selector(Selector *selector) {
   NR52_REG = 0x80;
   NR50_REG = 0x77;
   NR51_REG = 0xFF;
+  NR12_REG = 0x01;
 }
 
 void update_selector_position(Selector* selector) {
@@ -36,7 +37,7 @@ void update_selector_position(Selector* selector) {
 void play_move_sfx(void) {
   NR10_REG = 0x16;
   NR11_REG = 0x40;
-  NR12_REG = 0x71;
+  NR12_REG = 0xD1;
   NR13_REG = 0xFF;
   NR14_REG = 0xE3;
 }
@@ -44,7 +45,7 @@ void play_move_sfx(void) {
 void play_place_sfx(void) {
   NR10_REG = 0x1E;
   NR11_REG = 0x40;
-  NR12_REG = 0x71;
+  NR12_REG = 0xD1;
   NR13_REG = 0x00;
   NR14_REG = 0xC3;
 }

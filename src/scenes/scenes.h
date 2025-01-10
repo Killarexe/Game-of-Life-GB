@@ -3,7 +3,8 @@
 
 typedef enum Scene {
   TITLE_SCENE,
-  GRID_SCENE
+  GRID_SCENE,
+  MANUAL_SCENE
 } Scene;
 
 #endif
