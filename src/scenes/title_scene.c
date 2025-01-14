@@ -7,7 +7,7 @@
 #include "../huge_driver/hUGEDriver.h"
 #include "../musics/plateau.h"
 
-uint8_t buttons[] = {J_UP, J_UP, J_DOWN, J_DOWN, J_LEFT, J_RIGHT, J_LEFT, J_RIGHT, J_A, J_B};
+uint8_t buttons[] = {J_UP, J_UP, J_DOWN, J_DOWN, J_LEFT, J_RIGHT, J_LEFT, J_RIGHT, J_B, J_A};
 uint8_t buttons_index = 0;
 
 void init_title_scene(void) {
