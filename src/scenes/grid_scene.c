@@ -29,30 +29,27 @@ void init_grid_scene(GridScene* grid, uint16_t random_seed) {
   DISPLAY_ON;
 }
 
-uint8_t warp_index(int8_t index, uint8_t max) {
-  if (index < 0) {
-    return max - 1;
-  }
-  if (index >= max) {
-    return 0;
-  }
-  return index;
-}
-
 uint8_t get_neighbours(uint8_t* map, uint8_t x, uint8_t y) {
   uint8_t neighbours = 0;
-  for (int8_t y_offset = -1; y_offset < 2; y_offset++) {
-    uint8_t y_pos = warp_index(y + y_offset, MAP_HEIGHT);
-    for (int8_t x_offset = -1; x_offset < 2; x_offset++) {
-      if (x_offset == 0 && y_offset == 0) {
-        continue;
-      }
-      uint8_t x_pos = warp_index(x + x_offset, MAP_WIDTH);
-      if (map[y_pos * MAP_WIDTH + x_pos] == 1) {
-        neighbours++;
-      }
-    }
+  const int8_t offsets[8][2] = {
+    {-1, -1}, {0, -1}, {1, -1},
+    {-1,  0},          {1,  0},
+    {-1,  1}, {0,  1}, {1,  1}
+  };
+  
+  for (uint8_t i = 0; i < 8; i++) {
+    int16_t nx = x + offsets[i][0];
+    int16_t ny = y + offsets[i][1];
+    
+    if (nx < 0) nx = MAP_WIDTH - 1;
+    if (nx >= MAP_WIDTH) nx = 0;
+    if (ny < 0) ny = MAP_HEIGHT - 1;
+    if (ny >= MAP_HEIGHT) ny = 0;
+    
+    uint16_t neighbor_pos = ny * MAP_WIDTH + nx;
+    neighbours += map[neighbor_pos];
   }
+  
   return neighbours;
 }
 
@@ -63,17 +60,12 @@ void update_map(GridScene* grid) {
   } else {
     next_map = grid->first_map;
   }
+
   for (uint8_t y = 0; y < MAP_HEIGHT; y++) {
     for (uint8_t x = 0; x < MAP_WIDTH; x++) {
-      uint16_t index = y * MAP_WIDTH + x;
+      uint16_t index = ((y << 2) * 5) + x;
       uint8_t neighbours = get_neighbours(grid->current_map, x, y);
-      if (grid->current_map[index] == 1 && (neighbours == 2 || neighbours == 3)) {
-        next_map[index] = 1;
-      } else if (neighbours == 3) {
-        next_map[index] = 1;
-      } else {
-        next_map[index] = 0;
-      }
+      next_map[index] = (grid->current_map[index] && neighbours == 2) || neighbours == 3;
     }
   }
   grid->current_map = next_map;

@@ -52,15 +52,15 @@ if(NOT LCC)
 endif()
 
 # Set compile and link commands
-set(CMAKE_C_COMPILE_OBJECT "<CMAKE_C_COMPILER> -c -o <OBJECT> <SOURCE>")
-set(CMAKE_C_LINK_EXECUTABLE "<CMAKE_C_COMPILER> -o <TARGET> <OBJECTS>")
+set(CMAKE_C_COMPILE_OBJECT "<CMAKE_C_COMPILER> -Wa-l -Wl-m -Wl-j -DUSE_SFR_FOR_REG -c -o <OBJECT> <SOURCE>")
+set(CMAKE_C_LINK_EXECUTABLE "<CMAKE_C_COMPILER> -Wa-l -Wl-m -Wl-j -DUSE_SFR_FOR_REG -o <TARGET> <OBJECTS>")
 
 # Add your source files here
 file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS "${CMAKE_CURRENT_LIST_DIR}/src/*.c")
 
 # Create custom target for GameBoy ROM
 add_custom_target(${PROJECT_NAME}.gb ALL
-  COMMAND ${LCC} -Wl-l${CMAKE_CURRENT_LIST_DIR}/lib/hUGEDriver.lib -o ${PROJECT_NAME}.gb ${SOURCES} 
+  COMMAND ${LCC} -Wl-l${CMAKE_CURRENT_LIST_DIR}/lib/hUGEDriver.lib -Wl-m -Wl-j -DUSE_SFR_FOR_REG -o ${PROJECT_NAME}.gb ${SOURCES} 
   WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
   DEPENDS ${SOURCES}
   COMMENT "Building GameBoy ROM"
