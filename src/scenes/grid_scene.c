@@ -6,19 +6,15 @@
 #include "../selector.h"
 #include "../huge_driver/hUGEDriver.h"
 #include "../musics/led.h"
-#include "../musics/spot.h"
 
 void init_grid_scene(GridScene* grid, uint16_t random_seed) {
   grid->is_paused = 1;
   grid->current_map = grid->first_map;
+  grid->alive_cells_count = 2;
+  grid->born_cell_count = 3;
 
   initrand(random_seed);
-  uint8_t music = rand() & 1;
-  if (music == 0) {
-    hUGE_init(&led_music);
-  } else {
-    hUGE_init(&spot_music);
-  }
+  hUGE_init(&led_music);
 
   init_selector(&grid->selector);
   set_bkg_tiles(0, 0, 20, 18, grid->current_map);
@@ -65,7 +61,7 @@ void update_map(GridScene* grid) {
     for (uint8_t x = 0; x < MAP_WIDTH; x++) {
       uint16_t index = ((y << 2) * 5) + x;
       uint8_t neighbours = get_neighbours(grid->current_map, x, y);
-      next_map[index] = (grid->current_map[index] && neighbours == 2) || neighbours == 3;
+      next_map[index] = (grid->current_map[index] && neighbours == grid->alive_cells_count) || neighbours == grid->born_cell_count;
     }
   }
   grid->current_map = next_map;
@@ -90,10 +86,8 @@ void update_grid_scene(GridScene* grid, uint8_t just_pressed_keys) {
   if (grid->is_paused == 1) {
     update_selector(&grid->selector, grid->current_map, just_pressed_keys);
     if (just_pressed_keys & J_SELECT) {
-      randomize_map(grid->current_map);
-    } else if (just_pressed_keys & J_B) {
-      empty_map(grid->current_map);
-    }
+      //TODO: change to settings scene & redo state/scene management.
+    } 
   } else {
     update_map(grid);
   }

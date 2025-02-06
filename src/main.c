@@ -10,6 +10,7 @@
 #include "scenes/grid_scene.h"
 #include "scenes/manual_scene.h"
 #include "scenes/title_scene.h"
+#include "scenes/settings_scene.h"
 #include "scenes/scenes.h"
 
 void fadeout(void) {
@@ -73,9 +74,10 @@ int main(void) {
   uint8_t previous_keys = 0;
   uint16_t random_seed = 0;
   GridScene grid;
+  SettingsScene settings;
 
   init_sound_driver();
-  set_bkg_data(0, 27, TILES);
+  set_bkg_data(0, 36, TILES);
   set_bkg_tiles(0, 0, 20, 18, START_MESSAGE_MAP);
   SHOW_BKG;
   SHOW_SPRITES;

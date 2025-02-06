@@ -13,6 +13,8 @@ typedef struct GridScene {
   uint8_t second_map[360];
   uint8_t* current_map;
   uint8_t is_paused;
+  uint8_t born_cell_count;
+  uint8_t alive_cells_count;
 } GridScene;
 
 void init_grid_scene(GridScene* grid, uint16_t random_seed);
