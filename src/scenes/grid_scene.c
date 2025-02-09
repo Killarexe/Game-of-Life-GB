@@ -6,6 +6,8 @@
 #include "../selector.h"
 #include "../huge_driver/hUGEDriver.h"
 #include "../musics/led.h"
+#include "scenes.h"
+#include "settings_scene.h"
 
 void init_grid_scene(GridScene* grid, uint16_t random_seed) {
   grid->is_paused = 1;
@@ -64,29 +66,32 @@ void update_map(GridScene* grid) {
       next_map[index] = (grid->current_map[index] && neighbours == grid->alive_cells_count) || neighbours == grid->born_cell_count;
     }
   }
+
   grid->current_map = next_map;
   set_bkg_tiles(0, 0, MAP_WIDTH, MAP_HEIGHT, grid->current_map);
 }
 
-void randomize_map(uint8_t* current_map) {
+void randomize_map(GridScene* grid) {
   for (uint16_t index = 0; index < MAP_WIDTH * MAP_HEIGHT; index++) {
-    current_map[index] = rand() & 1;
+    grid->current_map[index] = rand() & 1;
   }
-  set_bkg_tiles(0, 0, MAP_WIDTH, MAP_HEIGHT, current_map);
+  set_bkg_tiles(0, 0, MAP_WIDTH, MAP_HEIGHT, grid->current_map);
 }
 
-void empty_map(uint8_t* current_map) {
+void empty_map(GridScene* grid) {
   for (uint16_t index = 0; index < MAP_WIDTH * MAP_HEIGHT; index++) {
-    current_map[index] = 0;
+    grid->current_map[index] = 0;
   }
-  set_bkg_tiles(0, 0, MAP_WIDTH, MAP_HEIGHT, current_map);
+  set_bkg_tiles(0, 0, MAP_WIDTH, MAP_HEIGHT, grid->current_map);
 }
 
-void update_grid_scene(GridScene* grid, uint8_t just_pressed_keys) {
+void update_grid_scene(GridScene* grid, uint8_t just_pressed_keys, SettingsScene* settings) {
   if (grid->is_paused == 1) {
     update_selector(&grid->selector, grid->current_map, just_pressed_keys);
     if (just_pressed_keys & J_SELECT) {
-      //TODO: change to settings scene & redo state/scene management.
+      fade_out();
+      init_settings_scene(settings, grid);
+      fade_in();
     } 
   } else {
     update_map(grid);

@@ -6,6 +6,7 @@
 
 #include <stdint.h>
 #include "../selector.h"
+#include "settings_scene.h"
 
 typedef struct GridScene {
   Selector selector;
@@ -18,6 +19,8 @@ typedef struct GridScene {
 } GridScene;
 
 void init_grid_scene(GridScene* grid, uint16_t random_seed);
-void update_grid_scene(GridScene* grid, uint8_t just_pressed_keys);
+void randomize_map(GridScene* grid);
+void empty_map(GridScene* grid);
+void update_grid_scene(GridScene* grid, uint8_t just_pressed_keys, SettingsScene* settings);
 
 #endif

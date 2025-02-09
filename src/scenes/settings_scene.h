@@ -2,7 +2,6 @@
 #define SETTINGS_SCENE_H
 
 #include <stdint.h>
-#include "grid_scene.h"
 
 typedef struct SettingsScene {
   uint8_t cursor_pos;

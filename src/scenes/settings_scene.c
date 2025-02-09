@@ -20,6 +20,7 @@ void init_settings_scene(SettingsScene* settings, GridScene* grid) {
   settings->cursor_pos = 0;
   update_background(grid->born_cell_count, grid->alive_cells_count, 0);
   hUGE_init(&spot_music);
+  HIDE_SPRITES;
 }
 
 uint8_t clamp(uint8_t value, uint8_t min, uint8_t max) {
@@ -35,9 +36,9 @@ void update_settings_scene(SettingsScene* settings, GridScene* grid, uint8_t jus
     update_background(grid->born_cell_count, grid->alive_cells_count, settings->cursor_pos);
   } else if (just_pressed_keys & J_A) {
     if (settings->cursor_pos == 2) {
-      //TODO: Empty grid
+      empty_map(grid);
     } else if (settings->cursor_pos == 3) {
-      //TODO: Randomize grid
+      randomize_map(grid);
     }
   } else if (just_pressed_keys & J_LEFT) {
     if (settings->cursor_pos == 0) {
@@ -48,6 +49,9 @@ void update_settings_scene(SettingsScene* settings, GridScene* grid, uint8_t jus
       update_background(grid->born_cell_count, grid->alive_cells_count, settings->cursor_pos);
     }
   } else if (just_pressed_keys & (J_B | J_SELECT)) {
-    //TODO: Switch to grid back again.
+    hUGE_init(&led_music);
+    init_selector(&grid->selector);
+    set_bkg_tiles(0, 0, 20, 18, grid->current_map);
+    SHOW_SPRITES;
   }
 }
