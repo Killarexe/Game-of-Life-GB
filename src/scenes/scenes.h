@@ -8,8 +8,8 @@ typedef enum Scene {
   SETTINGS_SCENE
 } Scene;
 
-void fade_in();
+void fade_in(void);
 
-void fade_out();
+void fade_out(void);
 
 #endif

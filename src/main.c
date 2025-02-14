@@ -41,13 +41,12 @@ int main(void) {
     } else if (current_scene == MANUAL_SCENE) {
       update_manual_scene(&current_scene, just_pressed_keys, &grid, &random_seed);
     } else if (current_scene == SETTINGS_SCENE) {
-      update_settings_scene(&settings, &grid, just_pressed_keys);
+      update_settings_scene(&settings, &grid, just_pressed_keys, &current_scene);
     } else {
-      update_grid_scene(&grid, just_pressed_keys);
+      update_grid_scene(&grid, just_pressed_keys, &settings, &current_scene);
     }
 
     previous_keys = current_keys;
     wait_vbl_done();
   }
-  return 0;
 }

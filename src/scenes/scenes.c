@@ -3,7 +3,7 @@
 #include <gb/gb.h>
 #include <stdint.h>
 
-void fade_out() {
+void fade_out(void) {
   for (uint8_t i = 0; i < 4; i++) {
     switch(i){
       case 0:
@@ -27,7 +27,7 @@ void fade_out() {
   }
 }
 
-void fade_in() {
+void fade_in(void) {
   for (uint8_t i=0; i<4; i++) {
     switch(i){
       case 0:

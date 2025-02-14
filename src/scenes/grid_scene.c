@@ -75,20 +75,19 @@ void randomize_map(GridScene* grid) {
   for (uint16_t index = 0; index < MAP_WIDTH * MAP_HEIGHT; index++) {
     grid->current_map[index] = rand() & 1;
   }
-  set_bkg_tiles(0, 0, MAP_WIDTH, MAP_HEIGHT, grid->current_map);
 }
 
 void empty_map(GridScene* grid) {
   for (uint16_t index = 0; index < MAP_WIDTH * MAP_HEIGHT; index++) {
     grid->current_map[index] = 0;
   }
-  set_bkg_tiles(0, 0, MAP_WIDTH, MAP_HEIGHT, grid->current_map);
 }
 
-void update_grid_scene(GridScene* grid, uint8_t just_pressed_keys, SettingsScene* settings) {
+void update_grid_scene(GridScene* grid, uint8_t just_pressed_keys, SettingsScene* settings, Scene* current_scene) {
   if (grid->is_paused == 1) {
     update_selector(&grid->selector, grid->current_map, just_pressed_keys);
     if (just_pressed_keys & J_SELECT) {
+      *current_scene = SETTINGS_SCENE;
       fade_out();
       init_settings_scene(settings, grid);
       fade_in();
