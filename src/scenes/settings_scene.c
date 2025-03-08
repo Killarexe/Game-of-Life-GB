@@ -9,18 +9,21 @@
 #include "scenes.h"
 
 void update_background(uint8_t born_cell_count, uint8_t alive_cells_count, uint8_t cursor_pos) {
-  set_bkg_tiles(0, 0, 20, 18, SETTINGS_MAP);
   const uint8_t cursor_y_poses[] = {5, 7, 9, 11};
   const uint8_t arrow_tile = 27; 
+  const uint8_t none_tile = 1;
   uint8_t born_tile = born_cell_count + arrow_tile;
   uint8_t live_tile = alive_cells_count + arrow_tile;
-  set_bkg_tiles(3, cursor_y_poses[cursor_pos], 1, 1, &arrow_tile);
+  for (uint8_t i = 0; i < 4; i++) {
+    set_bkg_tiles(3, cursor_y_poses[i], 1, 1, i == cursor_pos ? &arrow_tile : &none_tile);
+  }
   set_bkg_tiles(15, 5, 1, 1, &born_tile);
   set_bkg_tiles(15, 7, 1, 1, &live_tile);
 }
 
 void init_settings_scene(SettingsScene* settings, GridScene* grid) {
   settings->cursor_pos = 0;
+  set_bkg_tiles(0, 0, 20, 18, SETTINGS_MAP);
   update_background(grid->born_cell_count, grid->alive_cells_count, 0);
   hUGE_init(&spot_music);
   HIDE_SPRITES;
