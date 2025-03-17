@@ -17,7 +17,8 @@ void init_grid_scene(GridScene* grid, uint16_t random_seed) {
 
   initrand(random_seed);
   hUGE_init(&led_music);
-
+  
+  empty_map(grid);
   init_selector(&grid->selector);
   set_bkg_tiles(0, 0, 20, 18, grid->current_map);
 
