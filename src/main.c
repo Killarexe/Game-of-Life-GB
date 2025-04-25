@@ -28,6 +28,10 @@ int main(void) {
   GridScene grid;
   SettingsScene settings;
 
+  if (_cpu == CGB_TYPE) {
+    cpu_fast();
+  }
+
   init_sound_driver();
   set_bkg_data(0, 36, TILES);
   start_intro_scene();
