@@ -28,15 +28,16 @@ void init_grid_scene(GridScene* grid, uint16_t random_seed) {
   DISPLAY_ON;
 }
 
+const int8_t offsets[8][2] = {
+  {-1, -1}, {0, -1}, {1, -1},
+  {-1,  0},          {1,  0},
+  {-1,  1}, {0,  1}, {1,  1}
+};
+
 uint8_t get_neighbours(uint8_t* map, uint8_t x, uint8_t y) {
   uint8_t neighbours = 0;
-  const int8_t offsets[8][2] = {
-    {-1, -1}, {0, -1}, {1, -1},
-    {-1,  0},          {1,  0},
-    {-1,  1}, {0,  1}, {1,  1}
-  };
-  
-  for (uint8_t i = 0; i < 8; i++) {
+  uint8_t i;
+  for (i = 0; i < 8; i++) {
     int16_t nx = x + offsets[i][0];
     int16_t ny = y + offsets[i][1];
     
@@ -60,8 +61,9 @@ void update_map(GridScene* grid) {
     next_map = grid->first_map;
   }
 
-  for (uint8_t y = 0; y < MAP_HEIGHT; y++) {
-    for (uint8_t x = 0; x < MAP_WIDTH; x++) {
+  uint8_t y, x;
+  for (y = 0; y < MAP_HEIGHT; y++) {
+    for (x = 0; x < MAP_WIDTH; x++) {
       uint16_t index = ((y << 2) * 5) + x;
       uint8_t neighbours = get_neighbours(grid->current_map, x, y);
       next_map[index] = (grid->current_map[index] && neighbours == grid->alive_cells_count) || neighbours == grid->born_cell_count;
